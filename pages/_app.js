@@ -4,7 +4,7 @@ import '../styles/index.css'
 export default function MyApp({ Component, pageProps }) {
   return (<>
     <Head>
-      <title>My new cool app</title>
+      <title>Thomas Ankcorn</title>
       <meta
         name="viewport"
         content="initial-scale=1.0, width=device-width"
