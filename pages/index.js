@@ -1,7 +1,7 @@
 export default () => (
   <div className="flex w-screen justify-center p-16">
     <div className="max-w-xs sm:max-w-2xl space-y-6">
-      <h1 className="text-3xl sm:text-5xl leading-tight">Full Stack Developer, Software Coach, and Serverless-First Advocate</h1>
+      <h1 className="text-3xl sm:text-5xl leading-tight">Systems Engineer, Software Coach, and Serverless-First Advocate</h1>
       <p className="text-lg font-medium">
         I'm Thomas a software developer living and working in London.
         I enjoy mentoring, coaching, making things as simple as possible,
