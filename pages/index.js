@@ -1,7 +1,7 @@
 export default () => (
   <div className="flex w-screen justify-center p-16">
-    <div className="max-w-xs sm:max-w-2xl space-y-6">
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 774 545.47" className="w-40">
+    <div className="max-w-xs sm:max-w-2xl space-y-6 p-6">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 774 545.47" className="w-32">
         <title>Thomas Ankcorn LOGO</title>
         <g class="cls-1">
           <g id="Layer_1" data-name="Layer 1">
@@ -37,13 +37,13 @@ export default () => (
           </g>
         </g>
       </svg>
-      <h1 className="text-3xl sm:text-5xl leading-tight">Systems Engineer, Software Coach, and Serverless-First Advocate</h1>
-      <p className="text-lg font-medium">
+      <h1 className="text-2xl sm:text-4xl leading-tight font-bold">Systems Engineer, Software Coach, and Serverless-First Advocate</h1>
+      <p className="text-lg font-small">
         I'm Thomas a software developer living and working in London.
         I enjoy mentoring, coaching, making things as simple as possible,
         and discussing ways we can craft software better.
       </p>
-      <p className="text-lg font-medium">
+      <p className="text-lg font-small">
         I currently work at <a href="https://near.st" className="underline--magical">NearSt</a> building a data platform to help high street shops sell more locally.
       </p>
       <a className="bg-black rounded-lg py-3 px-5 my-2 text-white flex space-x-3 w-40" href="https://twitter.com/thomasankcorn">
