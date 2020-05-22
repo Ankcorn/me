@@ -15,6 +15,5 @@ export default () => (
         <span>Follow Me</span>
       </a>
     </div>
- 
   </div>
 )
