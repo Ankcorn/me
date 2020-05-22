@@ -23,3 +23,21 @@ body {
   background-size: 100% 88%;
   color: white;
 }
+
+
+.cls-1{isolation:isolate;}
+.cls-2,.cls-5{fill:#434343;}
+.cls-3,.cls-4{fill:#333;}
+.cls-3,.cls-5,.cls-6,.cls-7{
+  fill-rule:evenodd;
+}
+.cls-11,.cls-6{fill:#1a1a1a;}
+.cls-13,.cls-7{fill:#fff;}
+.cls-8{fill:#d49997;}
+.cls-9{
+  mix-blend-mode:multiply;
+}
+.cls-10{fill:#d0d2d3;}
+.cls-12{opacity:0.67;}
+.cls-14{fill:#191a1f;}
+
