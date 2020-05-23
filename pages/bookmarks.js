@@ -44,12 +44,12 @@ const FilterChip = ({ text, color, active, onClick }) => {
   }
 
   return (
-    <button onClick={onClick} className={ `${active ? chipColors[color].base : 'bg-gray-900'} flex items-center px-2 py-1 rounded-full text-white focus:outline-none hover:${active ? chipColors[color].hover : 'bg-gray-900'} space-x-2 mb-2 mr-4`}>
+    <button onClick={onClick} className={`${active ? chipColors[color].base : 'bg-gray-900'} flex items-center px-2 py-1 rounded-full text-white focus:outline-none hover:${active ? chipColors[color].hover : 'bg-gray-900'} space-x-2 mb-2 mr-4`}>
       {active ? <svg className="w-4 fill-current text-white" viewBox="0 0 20 20">
         <path d="M10 18a8 8 0 100-16 8 8 0 000 16zM7 9a1 1 0 000 2h6a1 1 0 100-2H7z" clipRule="evenodd" fillRule="evenodd"></path>
-      </svg> : 
-      <svg className="w-4 fill-current text-white"  viewBox="0 0 20 20">
-        <path d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-11a1 1 0 10-2 0v2H7a1 1 0 100 2h2v2a1 1 0 102 0v-2h2a1 1 0 100-2h-2V7z" clipRule="evenodd" fillRule="evenodd"></path>
+      </svg> :
+        <svg className="w-4 fill-current text-white" viewBox="0 0 20 20">
+          <path d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-11a1 1 0 10-2 0v2H7a1 1 0 100 2h2v2a1 1 0 102 0v-2h2a1 1 0 100-2h-2V7z" clipRule="evenodd" fillRule="evenodd"></path>
         </svg>}
       <span>{text}</span>
     </button>
@@ -58,9 +58,9 @@ const FilterChip = ({ text, color, active, onClick }) => {
 
 function Bookmarks() {
   const [topics, setTopics] = useState([
-     { text: 'Serverless', color: 'green', active: true },
-     { text: 'DynamoDB', color: 'blue', active: true },
-     { text: 'Soft Skills', color: 'orange', active: true }
+    { text: 'Serverless', color: 'green', active: true },
+    { text: 'DynamoDB', color: 'blue', active: true },
+    { text: 'Soft Skills', color: 'orange', active: true }
   ]);
 
   return (
@@ -70,67 +70,36 @@ function Bookmarks() {
         <p className="text-gray-700">A collection things I think are useful from around the web</p>
         <Search />
         <section className="flex flex-wrap">
-          {topics.map(({ text, color, active}, index) => <FilterChip
+          {topics.map(({ text, color, active }, index) => <FilterChip
             text={text}
             color={color}
             active={active}
-            onClick={() => setTopics(topics.map((topic, i) => index === i ? ({...topic, active: !topic.active}) : topic))}
+            onClick={() => setTopics(topics.map((topic, i) => index === i ? ({ ...topic, active: !topic.active }) : topic))}
           />)}
         </section>
-        <section class="text-gray-700 body-font overflow-hidden">
-  <div class="container px-5 py-24 mx-auto">
-    <div class="-my-8">
-      <div class="py-8 flex flex-wrap md:flex-no-wrap">
-        <div class="md:w-64 md:mb-0 mb-6 flex-shrink-0 flex flex-col">
-          <span class="tracking-widest font-medium title-font text-gray-900">CATEGORY</span>
-          <span class="mt-1 text-gray-500 text-sm">12 Jun 2019</span>
-        </div>
-        <div class="md:flex-grow">
-          <h2 class="text-2xl font-medium text-gray-900 title-font mb-2">Bitters hashtag waistcoat fashion axe chia unicorn</h2>
-          <p class="leading-relaxed">Glossier echo park pug, church-key sartorial biodiesel vexillologist pop-up snackwave ramps cornhole. Marfa 3 wolf moon party messenger bag selfies, poke vaporware kombucha lumbersexual pork belly polaroid hoodie portland craft beer.</p>
-          <a class="text-indigo-500 inline-flex items-center mt-4">Learn More
-            <svg class="w-4 h-4 ml-2" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M5 12h14"></path>
-              <path d="M12 5l7 7-7 7"></path>
-            </svg>
-          </a>
-        </div>
-      </div>
-      <div class="py-8 flex border-t-2 border-gray-200 flex-wrap md:flex-no-wrap">
-        <div class="md:w-64 md:mb-0 mb-6 flex-shrink-0 flex flex-col">
-          <span class="tracking-widest font-medium title-font text-gray-900">CATEGORY</span>
-          <span class="mt-1 text-gray-500 text-sm">12 Jun 2019</span>
-        </div>
-        <div class="md:flex-grow">
-          <h2 class="text-2xl font-medium text-gray-900 title-font mb-2">Meditation bushwick direct trade taxidermy shaman</h2>
-          <p class="leading-relaxed">Glossier echo park pug, church-key sartorial biodiesel vexillologist pop-up snackwave ramps cornhole. Marfa 3 wolf moon party messenger bag selfies, poke vaporware kombucha lumbersexual pork belly polaroid hoodie portland craft beer.</p>
-          <a class="text-indigo-500 inline-flex items-center mt-4">Learn More
-            <svg class="w-4 h-4 ml-2" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M5 12h14"></path>
-              <path d="M12 5l7 7-7 7"></path>
-            </svg>
-          </a>
-        </div>
-      </div>
-      <div class="py-8 flex border-t-2 border-gray-200 flex-wrap md:flex-no-wrap">
-        <div class="md:w-64 md:mb-0 mb-6 flex-shrink-0 flex flex-col">
-          <span class="tracking-widest font-medium title-font text-gray-900">CATEGORY</span>
-          <span class="mt-1 text-gray-500 text-sm">12 Jun 2019</span>
-        </div>
-        <div class="md:flex-grow">
-          <h2 class="text-2xl font-medium text-gray-900 title-font mb-2">Woke master cleanse drinking vinegar salvia</h2>
-          <p class="leading-relaxed">Glossier echo park pug, church-key sartorial biodiesel vexillologist pop-up snackwave ramps cornhole. Marfa 3 wolf moon party messenger bag selfies, poke vaporware kombucha lumbersexual pork belly polaroid hoodie portland craft beer.</p>
-          <a class="text-indigo-500 inline-flex items-center mt-4">Learn More
-            <svg class="w-4 h-4 ml-2" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M5 12h14"></path>
-              <path d="M12 5l7 7-7 7"></path>
-            </svg>
-          </a>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
+        <section className="text-gray-700 body-font overflow-hidden">
+          <div className="container px-5 py-24 mx-auto">
+            <div className="-my-8">
+              <div className="py-8 flex border-t-2 border-gray-200 flex-wrap md:flex-no-wrap">
+                <div className="md:w-64 md:mb-0 mb-6 flex-shrink-0 flex flex-col">
+                  <span className="tracking-widest font-medium title-font text-gray-900">DynamoDB</span>
+                  <a href="https://twitter.com/richbuggy" className="tracking-widest font-medium title-font text-indigo-500">By Rich Buggy</a>
+                  <span className="mt-1 text-gray-500 text-sm">May 15, 2020</span>
+                </div>
+                <div className="md:flex-grow">
+                  <h2 className="text-2xl font-medium text-gray-900 title-font mb-2">How to build an AppSync API using a single table DynamoDB design</h2>
+                  <p className="leading-relaxed">A practical guide to building a graphql api with appsync and a single dynamodb table. It includes farm animal examples! 🐄 🔥</p>
+                  <a href="https://www.goingserverless.com/blog/single-table-dynamodb-for-appsync" className="text-indigo-500 inline-flex items-center mt-4">Learn More
+            <svg className="w-4 h-4 ml-2" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                      <path d="M5 12h14"></path>
+                      <path d="M12 5l7 7-7 7"></path>
+                    </svg>
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
       </div>
     </div>
   )
