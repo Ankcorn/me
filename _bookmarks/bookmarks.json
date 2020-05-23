@@ -1,0 +1,10 @@
+[
+    {
+        "category": "DynamoDB",
+        "title": "How to build an AppSync API using a single table DynamoDB design",
+        "date": "May 15, 2020",
+        "description": "A practical guide to building a graphql api with appsync and a single dynamodb table. It includes farm animal examples! 🐄 🔥",
+        "author": "Rich Buggy",
+        "href": "https://www.goingserverless.com/blog/single-table-dynamodb-for-appsync"
+    }
+]

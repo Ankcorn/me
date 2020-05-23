@@ -1,4 +1,6 @@
 import { useState } from 'react';
+import fs from 'fs';
+import path from 'path';
 
 const Search = () => (
   <>
@@ -17,9 +19,9 @@ const Search = () => (
     <div className="bg-white hidden sm:flex rounded-lg items-center p-2 shadow-sm border border-gray-200">
       <svg fill="currentColor" className="w-8 mr-auto stroke-current text-gray-300" viewBox="0 0 20 20"><path d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" clipRule="evenodd" fillRule="evenodd"></path></svg>
       <input placeholder="search for bookmarks" className="w-full pl-4 text-xl outline-none focus:outline-none bg-transparent text-gray-700" />
-      <button className="flex items-center mt-auto text-white bg-red-500 border-0 py-2 px-4 focus:outline-none hover:bg-red-600 rounded shadow-2xl">
+      <button className="inline-flex items-center mt-auto text-white bg-red-500 border-0 py-2 px-4 focus:outline-none hover:bg-red-600 rounded shadow-2xl">
         Search
-            <svg fill="none" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" className="w-4 h-4 ml-auto" viewBox="0 0 24 24">
+            <svg fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" className="w-4 h-4 ml-2" viewBox="0 0 24 24">
           <path d="M5 12h14M12 5l7 7-7 7"></path>
         </svg>
       </button>
@@ -56,13 +58,46 @@ const FilterChip = ({ text, color, active, onClick }) => {
   )
 }
 
-function Bookmarks() {
+const Bookmark = ({ category, title, date, description, author, href }) => {
+  return (
+    <div className="py-8 flex border-t-2 border-gray-200 flex-wrap md:flex-no-wrap">
+      <div className="md:w-64 md:mb-0 mb-6 flex-shrink-0 flex flex-col">
+        <span className="tracking-widest font-medium title-font text-gray-900">{category}</span>
+        <a href="https://twitter.com/richbuggy" className="tracking-widest font-medium title-font text-indigo-500">{author}</a>
+        <span className="mt-1 text-gray-500 text-sm">{date}</span>
+      </div>
+      <div className="md:flex-grow">
+        <h2 className="text-2xl font-medium text-gray-900 title-font mb-2">{title}</h2>
+        <p className="leading-relaxed">{description}</p>
+        <a href={href} className="text-indigo-500 inline-flex items-center mt-4">Learn More
+          <svg className="w-4 h-4 ml-2" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2" fill="none" strokeLinecap="round" strokeLinejoin="round">
+            <path d="M5 12h14"></path>
+            <path d="M12 5l7 7-7 7"></path>
+          </svg>
+        </a>
+      </div>
+    </div>
+  )
+}
+
+const bookmarkDirectory = path.join(process.cwd(), '_bookmarks');
+
+export async function getStaticProps(context) {
+  return {
+    props: {
+      bookmarks: JSON.parse(fs.readFileSync(path.join(bookmarkDirectory, 'bookmarks.json')))
+    }
+  }
+}
+
+
+export default function Bookmarks({ bookmarks }) {
   const [topics, setTopics] = useState([
     { text: 'Serverless', color: 'green', active: true },
     { text: 'DynamoDB', color: 'blue', active: true },
     { text: 'Soft Skills', color: 'orange', active: true }
   ]);
-
+  console.log(bookmarks)
   return (
     <div className="flex w-screen justify-center p-8">
       <div className="max-w-xs sm:max-w-2xl space-y-6 p-2 container">
@@ -80,23 +115,9 @@ function Bookmarks() {
         <section className="text-gray-700 body-font overflow-hidden">
           <div className="container px-5 py-24 mx-auto">
             <div className="-my-8">
-              <div className="py-8 flex border-t-2 border-gray-200 flex-wrap md:flex-no-wrap">
-                <div className="md:w-64 md:mb-0 mb-6 flex-shrink-0 flex flex-col">
-                  <span className="tracking-widest font-medium title-font text-gray-900">DynamoDB</span>
-                  <a href="https://twitter.com/richbuggy" className="tracking-widest font-medium title-font text-indigo-500">By Rich Buggy</a>
-                  <span className="mt-1 text-gray-500 text-sm">May 15, 2020</span>
-                </div>
-                <div className="md:flex-grow">
-                  <h2 className="text-2xl font-medium text-gray-900 title-font mb-2">How to build an AppSync API using a single table DynamoDB design</h2>
-                  <p className="leading-relaxed">A practical guide to building a graphql api with appsync and a single dynamodb table. It includes farm animal examples! 🐄 🔥</p>
-                  <a href="https://www.goingserverless.com/blog/single-table-dynamodb-for-appsync" className="text-indigo-500 inline-flex items-center mt-4">Learn More
-            <svg className="w-4 h-4 ml-2" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                      <path d="M5 12h14"></path>
-                      <path d="M12 5l7 7-7 7"></path>
-                    </svg>
-                  </a>
-                </div>
-              </div>
+              {bookmarks.map(bm => (
+                <Bookmark category={bm.category} title={bm.title} date={bm.date} description={bm.description} author={bm.author} href={bm.href} />
+              ))}
             </div>
           </div>
         </section>
@@ -104,5 +125,3 @@ function Bookmarks() {
     </div>
   )
 }
-
-export default Bookmarks;
