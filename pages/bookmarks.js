@@ -1,34 +1,39 @@
-import { useState } from 'react';
+import { useState, useMemo } from 'react';
 import fs from 'fs';
 import path from 'path';
+import FuzzySearch from 'fuzzy-search'; // Or: var FuzzySearch = require('fuzzy-search');
 
-const Search = () => (
-  <>
-    <div className="flex flex-col space-y-2 sm:hidden">
-      <div className="bg-white rounded-lg flex items-center p-2 shadow-sm border border-gray-200">
-        <svg className="w-8 mr-auto stroke-current text-gray-300" viewBox="0 0 20 20"><path d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" clipRule="evenodd" fillRule="evenodd"></path></svg>
-        <input placeholder="search for bookmarks" className="w-full pl-4 text-xl outline-none focus:outline-none bg-transparent" />
+
+const Search = ({ onSearch }) => {
+  const [value, setValue] = useState()
+  console.log(value)
+  return (
+    <form onSubmit={e=>{e.preventDefault(); onSearch(value) }}>
+      <div className="flex flex-col space-y-2 sm:hidden">
+        <div className="bg-white rounded-lg flex items-center p-2 shadow-sm border border-gray-200">
+          <svg fill="currentColor" className="w-8 mr-auto stroke-current text-gray-300" viewBox="0 0 20 20"><path d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" clipRule="evenodd" fillRule="evenodd"></path></svg>
+          <input value={value} onChange={({target}) => setValue(target.value)} placeholder="search for bookmarks" className="w-full pl-4 text-xl outline-none focus:outline-none bg-transparent text-gray-700" />
+        </div>
+        <button type="submit" className="flex items-center mt-auto text-white bg-red-500 border-0 py-2 px-4 focus:outline-none hover:bg-red-600 rounded">
+          Search
+              <svg fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" className="w-4 h-4 ml-auto" viewBox="0 0 24 24">
+            <path d="M5 12h14M12 5l7 7-7 7"></path>
+          </svg>
+        </button>
       </div>
-      <button className="flex items-center mt-auto text-white bg-red-500 border-0 py-2 px-4 focus:outline-none hover:bg-red-600 rounded">
-        Search
-            <svg fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" className="w-4 h-4 ml-auto" viewBox="0 0 24 24">
-          <path d="M5 12h14M12 5l7 7-7 7"></path>
-        </svg>
-      </button>
-    </div>
-    <div className="bg-white hidden sm:flex rounded-lg items-center p-2 shadow-sm border border-gray-200">
-      <svg fill="currentColor" className="w-8 mr-auto stroke-current text-gray-300" viewBox="0 0 20 20"><path d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" clipRule="evenodd" fillRule="evenodd"></path></svg>
-      <input placeholder="search for bookmarks" className="w-full pl-4 text-xl outline-none focus:outline-none bg-transparent text-gray-700" />
-      <button className="inline-flex items-center mt-auto text-white bg-red-500 border-0 py-2 px-4 focus:outline-none hover:bg-red-600 rounded shadow-2xl">
-        Search
-            <svg fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" className="w-4 h-4 ml-2" viewBox="0 0 24 24">
-          <path d="M5 12h14M12 5l7 7-7 7"></path>
-        </svg>
-      </button>
-    </div>
-  </>
-)
-
+      <div className="bg-white hidden sm:flex rounded-lg items-center p-2 shadow-sm border border-gray-200">
+        <svg fill="currentColor" className="w-8 mr-auto stroke-current text-gray-300" viewBox="0 0 20 20"><path d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" clipRule="evenodd" fillRule="evenodd"></path></svg>
+        <input value={value} onChange={({target}) => setValue(target.value)} placeholder="search for bookmarks" className="w-full pl-4 text-xl outline-none focus:outline-none bg-transparent text-gray-700" />
+        <button type="submit" className="inline-flex items-center mt-auto text-white bg-red-500 border-0 py-2 px-4 focus:outline-none hover:bg-red-600 rounded shadow-2xl">
+          Search
+              <svg fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" className="w-4 h-4 ml-2" viewBox="0 0 24 24">
+            <path d="M5 12h14M12 5l7 7-7 7"></path>
+          </svg>
+        </button>
+      </div>
+    </form >
+  )
+}
 const FilterChip = ({ text, color, active, onClick }) => {
   const chipColors = {
     green: {
@@ -42,6 +47,10 @@ const FilterChip = ({ text, color, active, onClick }) => {
     blue: {
       base: 'bg-blue-500',
       hover: 'bg-blue-600'
+    },
+    gray: {
+      base: 'bg-gray-500',
+      hover: 'bg-gray-600'
     }
   }
 
@@ -90,20 +99,37 @@ export async function getStaticProps(context) {
   }
 }
 
+function getColor(topic) {
+  const colors = {
+    dynamodb: 'blue',
+    lambda: 'orange',
+  }
 
+  return colors[topic.toLowerCase()] || 'gray'
+}
+function getTopics(bookmarks) {
+  const topics = [ ...new Set(bookmarks.map(bm => bm.category))];
+  return topics.map(topic => ({
+    text: topic, color: getColor(topic), active: true
+  }))
+}
 export default function Bookmarks({ bookmarks }) {
-  const [topics, setTopics] = useState([
-    { text: 'Serverless', color: 'green', active: true },
-    { text: 'DynamoDB', color: 'blue', active: true },
-    { text: 'Soft Skills', color: 'orange', active: true }
-  ]);
-  console.log(bookmarks)
+  const [search, setSearch] = useState();
+  const [topics, setTopics] = useState(getTopics(bookmarks));
+  const filteredBookmarks = bookmarks.filter(bookmark => topics.filter(t => t.active).map(t => t.text).includes(bookmark.category));
+
+  const fuzzy = new FuzzySearch(filteredBookmarks, ['category', 'title', 'date', 'description', 'author', 'href'], {
+    caseSensitive: true,
+  });
+
+  const bookmarksToDisplay = fuzzy.search(search);
+
   return (
     <div className="flex w-screen justify-center p-8">
       <div className="max-w-xs sm:max-w-2xl space-y-6 p-2 container">
         <h1 className="text-4xl font-black tracking-wider uppercase text-gray-900">Bookmarks</h1>
         <p className="text-gray-700">A collection things I think are useful from around the web</p>
-        <Search />
+        <Search onSearch={setSearch}/>
         <section className="flex flex-wrap">
           {topics.map(({ text, color, active }, index) => <FilterChip
             text={text}
@@ -115,7 +141,7 @@ export default function Bookmarks({ bookmarks }) {
         <section className="text-gray-700 body-font overflow-hidden">
           <div className="container px-5 py-24 mx-auto">
             <div className="-my-8">
-              {bookmarks.map(bm => (
+              {bookmarksToDisplay.map(bm => (
                 <Bookmark category={bm.category} title={bm.title} date={bm.date} description={bm.description} author={bm.author} href={bm.href} />
               ))}
             </div>
