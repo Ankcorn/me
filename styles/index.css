@@ -10,8 +10,6 @@ body {
   font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Ubuntu;
 }
 
-
-
 .cls-1{isolation:isolate;}
 .cls-2,.cls-5{fill:#434343;}
 .cls-3,.cls-4{fill:#333;}
