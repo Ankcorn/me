@@ -47,6 +47,14 @@ const FilterChip = ({ text, color, active, onClick }) => {
       base: 'bg-blue-500',
       hover: 'bg-blue-600'
     },
+    purple: {
+      base: 'bg-purple-500',
+      hover: 'bg-purple-600'
+    },
+    green: {
+      base: 'bg-green-500',
+      hover: 'bg-green-600'
+    },
     gray: {
       base: 'bg-gray-500',
       hover: 'bg-gray-600'
@@ -66,7 +74,7 @@ const FilterChip = ({ text, color, active, onClick }) => {
   )
 }
 
-const Bookmark = ({ category, title, date, description, author, href }) => {
+const Bookmark = ({ category, title, date, description, author, href, social }) => {
   return (
     <div className="py-8 flex border-t-2 border-gray-200 flex-wrap md:flex-no-wrap">
       <div className="md:w-64 md:mb-0 mb-6 flex-shrink-0 flex flex-col">
@@ -76,7 +84,7 @@ const Bookmark = ({ category, title, date, description, author, href }) => {
       <div className="md:flex-grow">
         <h2 className="text-2xl font-medium text-gray-900 title-font mb-2">{title}</h2>
         <p className="leading-relaxed">{description}</p>
-        <a href="https://twitter.com/richbuggy" className="tracking-wide font-medium title-font ">By {author}</a>
+        <a href={social} className="tracking-wide font-medium title-font ">{author && `By ${author}`}</a>
         <br />
         <a href={href} className="text-indigo-500 inline-flex items-center mt-4">Learn More
           <svg className="w-4 h-4 ml-2" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2" fill="none" strokeLinecap="round" strokeLinejoin="round">
@@ -101,8 +109,9 @@ export async function getStaticProps(context) {
 
 function getColor(topic) {
   const colors = {
-    dynamodb: 'blue',
-    lambda: 'orange',
+    css: 'purple',
+    serverless: 'orange',
+    'technical writing': 'green'
   }
 
   return colors[topic.toLowerCase()] || 'gray'
@@ -151,6 +160,7 @@ export default function Bookmarks({ bookmarks }) {
                   description={bm.description}
                   author={bm.author}
                   href={bm.href}
+                  social={bm.social}
                 />
               ))}
             </div>

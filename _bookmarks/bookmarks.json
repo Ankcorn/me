@@ -5,6 +5,57 @@
         "date": "May 15, 2020",
         "description": "A practical guide to building a graphql api with appsync and a single dynamodb table. It includes cute farm animal examples! 🐄 🥺 🔥",
         "author": "Rich Buggy",
-        "href": "https://www.goingserverless.com/blog/single-table-dynamodb-for-appsync"
+        "href": "https://www.goingserverless.com/blog/single-table-dynamodb-for-appsync",
+        "social": "https://twitter.com/richbuggy"
+    },
+    {
+        "href": "https://mertjf.github.io/tailblocks/",
+        "author": "Mert Cukuren",
+        "date": "May 17, 2020",
+        "category": "CSS",
+        "title": "Tailblocks: Ready-to-use Tailwind CSS blocks",
+        "description": "60 Beautifuly presented templates to build websites with tailwind css"
+    },
+    {
+        "href": "https://twitter.com/Jenny__Anne/status/1239610062831865859",
+        "author": "Jen Lambourne",
+        "date": "March 16, 2020",
+        "category": "Technical Writing",
+        "social": "https://twitter.com/Jenny__Anne",
+        "title": "Want to write great docs? Here are some resources to get you started.",
+        "description": "This twitter thread contains everything you need to get started writing great things that help people get stuff done"
+    },
+    {
+        "href": "https://read.acloud.guru/how-we-built-a-big-data-analytics-platform-on-aws-for-100-large-users-for-under-2-a-month-b37425b6cc4",
+        "author": "Jacob Richter",
+        "date": "Apr 11, 2018",
+        "category": "Serverless",
+        "title": "How we built a big data platform on AWS for 100 users for under $2 a month",
+        "description": "The why of aws athena and how to reduce the cost of querying it further"
+    },
+    {
+        "href": "https://cube.dev/",
+        "date": "Apr 11, 2018",
+        "category": "Serverless",
+        "title": "Cube JS",
+        "description": "A complete open source analytics solution: visualization agnostic frontend SDKs and API backed by analytical server infrastructure."
+    },
+    {
+        "href": "https://www.youtube.com/watch?v=2aPjsb-kIks&list=PL37ZVnwpeshHJSJf46Rk4B8amvm7Ecu58",
+        "date": "Jun 19, 2018",
+        "category": "Soft Skills",
+        "author": "Trent Willis",
+        "social": "https://twitter.com/trentmwillis",
+        "title": "It’s Dangerous To Go Alone! Take This Team",
+        "description": "This talk explores the concept of “safe” teams and how they enable us to build and design software faster"
+    },
+    {
+        "href": "https://www.youtube.com/watch?v=VzWLGMtXflg&t=91s",
+        "date": "Nov 29, 2017",
+        "category": "Soft Skills",
+        "author": "Sandi Metz",
+        "social": "https://twitter.com/trentmwillis",
+        "title": "You're Insufficiently Persuasive",
+        "description": "Not being sufficiently persuasive is the largest external source of programmer unhapiness."
     }
 ]
