@@ -134,38 +134,44 @@ export default function Bookmarks({ bookmarks }) {
   const bookmarksToDisplay = fuzzy.search(search);
 
   return (
-    <div className="flex w-screen justify-center p-8">
-      <div className="max-w-xs sm:max-w-2xl space-y-6 p-2 container">
-        <h1 className="text-4xl font-black tracking-wider uppercase text-gray-900">Bookmarks</h1>
-        <p className="text-gray-700">A collection things I think are useful from around the web</p>
-        <Search onSearch={setSearch} />
-        <section className="flex flex-wrap">
-          {topics.map(({ text, color, active }, index) => <FilterChip
-            key={text}
-            text={text}
-            color={color}
-            active={active}
-            onClick={() => setTopics(topics.map((topic, i) => index === i ? ({ ...topic, active: !topic.active }) : topic))}
-          />)}
-        </section>
-        <section className="text-gray-700 body-font overflow-hidden">
-          <div className="container px-5 py-24 mx-auto">
-            <div className="-my-8">
-              {bookmarksToDisplay.map(bm => (
-                <Bookmark
-                  key={bm.href}
-                  category={bm.category}
-                  title={bm.title}
-                  date={bm.date}
-                  description={bm.description}
-                  author={bm.author}
-                  href={bm.href}
-                  social={bm.social}
-                />
-              ))}
+    <div className="flex flex-col w-screen overflow-x-hidden">
+      <div className="flex justify-center pt-8">
+        <div className="max-w-xs sm:max-w-2xl space-y-6 p-2 container">
+          <h1 className="text-4xl font-black tracking-wider uppercase text-gray-900">Bookmarks</h1>
+          <p className="text-gray-700">A curated collection of software engineering resources. Covers a wide range of topics I am currently interested in.</p>
+          <Search onSearch={setSearch} />
+          <section className="flex flex-wrap">
+            {topics.map(({ text, color, active }, index) => <FilterChip
+              key={text}
+              text={text}
+              color={color}
+              active={active}
+              onClick={() => setTopics(topics.map((topic, i) => {
+                if (topics.filter(el => el.active).length === topics.length && index !== i) return { ...topic, active: !topic.active };
+                if (topics.filter(el => el.active).length !== topics.length && index === i) return { ...topic, active: !topic.active }
+                return topic
+              }))}
+            />)}
+          </section>
+          <section className="text-gray-700 body-font overflow-hidden">
+            <div className="container px-5 py-24 mx-auto">
+              <div className="-my-8">
+                {bookmarksToDisplay.map(bm => (
+                  <Bookmark
+                    key={bm.href}
+                    category={bm.category}
+                    title={bm.title}
+                    date={bm.date}
+                    description={bm.description}
+                    author={bm.author}
+                    href={bm.href}
+                    social={bm.social}
+                  />
+                ))}
+              </div>
             </div>
-          </div>
-        </section>
+          </section>
+        </div>
       </div>
     </div>
   )

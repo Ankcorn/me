@@ -16,7 +16,7 @@ class CustomDocument extends Document {
           <link rel="shortcut icon" sizes="144x144" type="image/png" href="fav/apple-icon-144x144.png" />
           <link rel="shortcut icon" sizes="152x152" type="image/png" href="fav/apple-icon-152x152.png" />
           <link rel="shortcut icon" sizes="180x180" type="image/png" href="fav/apple-icon-180x180.png" />
-          <link rel="shortcut icon" type="image/png" sizes="192x192"  href="fav/android-icon-192x192.png" />
+          <link rel="shortcut icon" type="image/png" sizes="192x192" href="fav/android-icon-192x192.png" />
           <link rel="shortcut icon" type="image/png" sizes="96x96" href="fav/favicon-96x96.png" />
           <meta name="msapplication-TileColor" content="#000000" />
           <meta name="msapplication-TileImage" content="/ms-icon-144x144.png" />
